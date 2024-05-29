@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공학용 계산기</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 400px;
+        }
+        .display {
+            background-color: #222;
+            color: #fff;
+            font-size: 2.5em;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: right;
+            margin-bottom: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            background-color: #00aaff;
+            border: none;
+            color: #fff;
+            padding: 20px;
+            font-size: 1.5em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        button:active {
+            background-color: #0088cc;
+            transform: scale(0.98);
+        }
+        button.operator {
+            background-color: #ffaa00;
+        }
+        button.operator:active {
+            background-color: #cc8800;
+        }
+        button.clear {
+            background-color: #ff4444;
+        }
+        button.clear:active {
+            background-color: #cc3333;
+        }
+        button.equals {
+            background-color: #00cc44;
+            grid-column: span 2;
+        }
+        button.equals:active {
+            background-color: #009933;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button class="clear">AC</button>
+            <button>(</button>
+            <button>)</button>
+            <button class="operator">/</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator">*</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="operator">-</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="operator">+</button>
+            <button>0</button>
+            <button>.</button>
+            <button class="equals">=</button>
+        </div>
+    </div>
+    <script>
+        const display = document.getElementById('display');
+        const buttons = Array.from(document.querySelectorAll('button'));
+        buttons.map(button => {
+            button.addEventListener('click', (e) => {
+                const value = e.target.innerText;
+                if (value === 'AC') {
+                    display.innerText = '0';
+                } else if (value === '=') {
+                    try {
+                        display.innerText = eval(display.innerText);
+                    } catch {
+                        display.innerText = 'Error';
+                    }
+                } else {
+                    if (display.innerText === '0') {
+                        display.innerText = value;
+                    } else {
+                        display.innerText += value;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
